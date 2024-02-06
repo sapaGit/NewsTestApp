@@ -36,7 +36,7 @@ struct NewsData: Decodable {
     let keywords: [String]?
     let creator: [String]?
     let description: String?
-    let pubDate: String?
+    let pubDate: String
     let imageURL: String?
     let sourceID: String
     let sourceURL: String

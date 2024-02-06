@@ -19,21 +19,41 @@ final class NewsTableViewCell: BaseTableViewCell {
 
     // MARK: - Properties
 
-    private let newsImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
-
-        return imageView
-    }()
-
-    private let nameLabel: UILabel = {
+    private let authorLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.italicSystemFont(ofSize: 10)
         label.numberOfLines = .zero
         label.textAlignment = .left
 
         return label
+    }()
+
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 10, weight: .light)
+        label.textColor = .lightGray
+        label.numberOfLines = .zero
+        label.textAlignment = .left
+
+        return label
+    }()
+
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        label.numberOfLines = .zero
+        label.textAlignment = .left
+
+        return label
+    }()
+
+    private let newsImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.clipsToBounds = true
+        imageView.kf.indicatorType = .activity
+        imageView.contentMode = .scaleAspectFill
+
+        return imageView
     }()
 
     private lazy var backgroundViewCell: UIView = {
@@ -59,15 +79,17 @@ extension NewsTableViewCell {
         nameLabel.text = nil
         newsImageView.image = nil
     }
-    
+
     func configure(model: NewsData) {
         nameLabel.text = model.title.capitalized
+        authorLabel.text = model.creator?.first
+        dateLabel.text = model.pubDate.toDateFormattedString() ?? "Unknown Date"
         guard let imageURL = model.imageURL else {return}
         let url = URL(string: imageURL)
 
         imageDownloadTask?.cancel()
-
-        imageDownloadTask = newsImageView.kf.setImage(with: url)
+        let placehoder = UIImage(systemName: "photo")
+        imageDownloadTask = newsImageView.kf.setImage(with: url, placeholder: placehoder)
     }
 }
 
@@ -81,16 +103,35 @@ extension NewsTableViewCell {
     }
 
     override func embedSubviews() {
-        backgroundViewCell.addSubviews(nameLabel, newsImageView)
+        backgroundViewCell.addSubviews(
+            nameLabel,
+            authorLabel,
+            dateLabel,
+            newsImageView
+        )
         addSubviews(backgroundViewCell)
     }
 
     override func setupConstraints() {
-        nameLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+
+        authorLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(5)
             $0.leading.equalToSuperview().inset(Constants.padding)
             $0.trailing.equalTo(newsImageView.snp.leading).inset(-Constants.padding)
         }
+
+        dateLabel.snp.makeConstraints {
+            $0.top.equalTo(authorLabel.snp.bottom).inset(-3)
+            $0.leading.equalToSuperview().inset(Constants.padding)
+            $0.trailing.equalTo(newsImageView.snp.leading).inset(-Constants.padding)
+        }
+
+        nameLabel.snp.makeConstraints {
+            $0.top.equalTo(dateLabel.snp.bottom).inset(-10)
+            $0.leading.equalToSuperview().inset(Constants.padding)
+            $0.trailing.equalTo(newsImageView.snp.leading).inset(-Constants.padding)
+        }
+
 
         newsImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
