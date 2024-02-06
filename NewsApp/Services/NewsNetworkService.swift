@@ -6,12 +6,14 @@
 import Foundation
 import Alamofire
 
-protocol AuthServiceProtocol {
+protocol NewsServiceProtocol {
     /// Get news .
     func getNews(completion: @escaping (AFResult<NewsModel>) -> Void)
+    /// Get news from next page
+    func getNextNews(pageNumber: Int, completion: @escaping (AFResult<NewsModel>) -> Void)
 }
 
-final class AuthService {
+final class NewsService {
 
     // MARK: - Dependencies
 
@@ -24,9 +26,9 @@ final class AuthService {
     }
 }
 
-// MARK: - AuthServiceProtocol
+// MARK: - NewsServiceProtocol
 
-extension AuthService: AuthServiceProtocol {
+extension NewsService: NewsServiceProtocol {
     /// Get news .
     func getNews(completion: @escaping (AFResult<NewsModel>) -> Void) {
 

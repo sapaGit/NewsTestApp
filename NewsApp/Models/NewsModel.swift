@@ -35,12 +35,11 @@ struct Result: Decodable {
     let link: String
     let keywords: [String]?
     let creator: [String]?
-    let description: String
-    let pubDate: String
-    let imageURL: String
+    let description: String?
+    let pubDate: String?
+    let imageURL: String?
     let sourceID: String
     let sourceURL: String
-    let sourcePriority: Int
     let category: [String]
 
     enum CodingKeys: String, CodingKey {
@@ -50,7 +49,6 @@ struct Result: Decodable {
         case imageURL = "image_url"
         case sourceID = "source_id"
         case sourceURL = "source_url"
-        case sourcePriority = "source_priority"
         case category
     }
 }
