@@ -45,16 +45,29 @@ final class NewsTableViewCell: BaseTableViewCell {
 
         return view
     }()
+
+    private var imageDownloadTask: DownloadTask?
 }
 
 // MARK: - Internal methods
 extension NewsTableViewCell {
 
-    func configure(model: Result) {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        imageDownloadTask?.cancel()
+        nameLabel.text = nil
+        newsImageView.image = nil
+    }
+    
+    func configure(model: NewsData) {
         nameLabel.text = model.title.capitalized
         guard let imageURL = model.imageURL else {return}
         let url = URL(string: imageURL)
-        newsImageView.kf.setImage(with: url)
+
+        imageDownloadTask?.cancel()
+
+        imageDownloadTask = newsImageView.kf.setImage(with: url)
     }
 }
 
@@ -81,7 +94,7 @@ extension NewsTableViewCell {
 
         newsImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().inset(Constants.padding)
+            $0.trailing.equalToSuperview().inset(30)
             $0.size.equalTo(Constants.disclosureImageSize)
         }
 

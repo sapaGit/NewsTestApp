@@ -42,6 +42,11 @@
 		A0757CCF2B7236BB006C3F61 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0757CCE2B7236BB006C3F61 /* DetailViewController.swift */; };
 		A0757CD12B72372F006C3F61 /* SegmentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0757CD02B72372F006C3F61 /* SegmentItem.swift */; };
 		A0757CD32B723777006C3F61 /* Strings+News.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0757CD22B723777006C3F61 /* Strings+News.swift */; };
+		A0757CD62B724027006C3F61 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0757CD52B724027006C3F61 /* DetailPresenter.swift */; };
+		A0757CD82B724034006C3F61 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0757CD72B724034006C3F61 /* DetailRouter.swift */; };
+		A0757CDA2B72403D006C3F61 /* DetailAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0757CD92B72403D006C3F61 /* DetailAssembler.swift */; };
+		A0757CDC2B726049006C3F61 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0757CDB2B726049006C3F61 /* BaseView.swift */; };
+		A0757CE02B726DB3006C3F61 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0757CDF2B726DB3006C3F61 /* StorageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +83,11 @@
 		A0757CCE2B7236BB006C3F61 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A0757CD02B72372F006C3F61 /* SegmentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentItem.swift; sourceTree = "<group>"; };
 		A0757CD22B723777006C3F61 /* Strings+News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Strings+News.swift"; sourceTree = "<group>"; };
+		A0757CD52B724027006C3F61 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
+		A0757CD72B724034006C3F61 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
+		A0757CD92B72403D006C3F61 /* DetailAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAssembler.swift; sourceTree = "<group>"; };
+		A0757CDB2B726049006C3F61 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		A0757CDF2B726DB3006C3F61 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				A0757C9F2B721D53006C3F61 /* Network */,
+				A0757CE12B726DC4006C3F61 /* Storage */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -233,6 +244,7 @@
 				A0757CAF2B721E84006C3F61 /* BaseViewProtocol.swift */,
 				A0757CB12B721E91006C3F61 /* BasePresenterProtocol.swift */,
 				A0757CB32B721EA8006C3F61 /* BaseTableViewCell.swift */,
+				A0757CDB2B726049006C3F61 /* BaseView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -266,8 +278,19 @@
 			isa = PBXGroup;
 			children = (
 				A0757CCE2B7236BB006C3F61 /* DetailViewController.swift */,
+				A0757CD52B724027006C3F61 /* DetailPresenter.swift */,
+				A0757CD72B724034006C3F61 /* DetailRouter.swift */,
+				A0757CD92B72403D006C3F61 /* DetailAssembler.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		A0757CE12B726DC4006C3F61 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				A0757CDF2B726DB3006C3F61 /* StorageManager.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -352,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0757CCA2B722AD8006C3F61 /* Strings+Services.swift in Sources */,
+				A0757CDA2B72403D006C3F61 /* DetailAssembler.swift in Sources */,
 				A0757CB42B721EA8006C3F61 /* BaseTableViewCell.swift in Sources */,
 				A0757CAE2B721E74006C3F61 /* BaseViewController.swift in Sources */,
 				A0757C762B721946006C3F61 /* NewsViewController.swift in Sources */,
@@ -359,6 +383,8 @@
 				A0757CB82B721F0C006C3F61 /* UIStackView+extension.swift in Sources */,
 				A0757CBA2B721F18006C3F61 /* UITableViewCell+extension.swift in Sources */,
 				A0757CBE2B721F6D006C3F61 /* Encodable+extension.swift in Sources */,
+				A0757CDC2B726049006C3F61 /* BaseView.swift in Sources */,
+				A0757CD82B724034006C3F61 /* DetailRouter.swift in Sources */,
 				A0757CD32B723777006C3F61 /* Strings+News.swift in Sources */,
 				A0757CC62B7220AD006C3F61 /* MainTabBarController.swift in Sources */,
 				A0757CCF2B7236BB006C3F61 /* DetailViewController.swift in Sources */,
@@ -374,7 +400,9 @@
 				A0757C742B721946006C3F61 /* SceneDelegate.swift in Sources */,
 				A0757CA32B721D74006C3F61 /* NetworkError.swift in Sources */,
 				A0757CA52B721D9D006C3F61 /* AFResult.swift in Sources */,
+				A0757CD62B724027006C3F61 /* DetailPresenter.swift in Sources */,
 				A0757CD12B72372F006C3F61 /* SegmentItem.swift in Sources */,
+				A0757CE02B726DB3006C3F61 /* StorageManager.swift in Sources */,
 				A0757CB22B721E91006C3F61 /* BasePresenterProtocol.swift in Sources */,
 				A0757C8E2B721C39006C3F61 /* NewsRouter.swift in Sources */,
 				A0757CB02B721E84006C3F61 /* BaseViewProtocol.swift in Sources */,

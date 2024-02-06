@@ -7,7 +7,7 @@ import Foundation
 
 protocol NewsRouterProtocol {
     /// Navigates to DetailViewController
-    func routToDetail(model: Result)
+    func routToDetail(model: NewsData)
 }
 
 final class NewsRouter {
@@ -26,8 +26,8 @@ final class NewsRouter {
 
 extension NewsRouter: NewsRouterProtocol {
     /// Navigate to the detail screen.
-    func routToDetail(model: Result) {
-        let viewController = DetailViewController()
+    func routToDetail(model: NewsData) {
+        let viewController = DetailAssembler.assembly(model: model)
         view?.pushViewController(viewController, animated: true)
     }
 }

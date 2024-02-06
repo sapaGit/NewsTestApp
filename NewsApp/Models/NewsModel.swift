@@ -24,12 +24,12 @@ struct NewsRequest: RequestProtocol {
 struct NewsModel: Decodable {
     let status: String
     let totalResults: Int
-    let results: [Result]
+    let results: [NewsData]
     let nextPage: String
 }
 
 // MARK: - Result
-struct Result: Decodable {
+struct NewsData: Decodable {
     let articleID: String
     let title: String
     let link: String
