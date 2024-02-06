@@ -26,6 +26,9 @@ final class NewsViewController: BaseViewController {
 
     // MARK: - Properties
 
+    var selectedNewsHandler: (([NewsData]) -> Void)?
+    var selectedNews: [NewsData] = []
+
     var presenter: NewsPresenterProtocol!
 
     private lazy var segmentedControl: UISegmentedControl = {
@@ -67,6 +70,14 @@ final class NewsViewController: BaseViewController {
     private func didChangeSegment() {
         let selectedSegmentIndex = segmentedControl.selectedSegmentIndex
         presenter.segmentDidChange(selectedSegmentIndex: selectedSegmentIndex)
+    }
+
+    func checkBoxChanged(to isSelected: Bool, value: NewsData) {
+        if isSelected {
+            selectedNews.append(value)
+        } else {
+            selectedNews = selectedNews.filter { $0.articleID != value.articleID }
+        }
     }
 }
 
@@ -117,6 +128,11 @@ extension NewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         Constants.tableViewRowHeight
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currentItem = presenter.news[indexPath.row]
+        presenter.didSelectSettingsRow(item: currentItem)
+    }
 }
 
 // MARK: - UITableView Data Source
@@ -134,11 +150,6 @@ extension NewsViewController: UITableViewDataSource {
         cell.configure(model: currentNews)
 
         return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentItem = presenter.news[indexPath.row]
-        presenter.didSelectSettingsRow(item: currentItem)
     }
 }
 

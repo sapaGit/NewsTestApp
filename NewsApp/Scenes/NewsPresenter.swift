@@ -7,19 +7,19 @@ import Foundation
 
 protocol NewsPresenterProtocol: BasePresenterProtocol {
 
-    var news: [Result] { get }
+    var news: [NewsData] { get }
 
     func segmentDidChange(selectedSegmentIndex: Int)
 
     /// Called when the monstersTableView row is tapped.
-    func didSelectSettingsRow(item: Result)
+    func didSelectSettingsRow(item: NewsData)
 }
 
 final class NewsPresenter {
 
     // MARK: - Properties
 
-    var news: [Result] = []
+    var news: [NewsData] = []
 
     // MARK: - Dependencies
 
@@ -62,7 +62,7 @@ extension NewsPresenter: NewsPresenterProtocol {
     }
 
     /// Called when the newsTableView row is tapped.
-    func didSelectSettingsRow(item: Result) {
+    func didSelectSettingsRow(item: NewsData) {
         router.routToDetail(model: item)
     }
 }
