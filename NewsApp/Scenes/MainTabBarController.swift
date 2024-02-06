@@ -25,7 +25,7 @@ private extension MainTabBarController {
 
         // MARK: - News tab item
 
-        let newsVC = NewsViewController()
+        let newsVC = NewsAssembler.assembly()
 
         let newsNC = UINavigationController(rootViewController: newsVC)
         newsNC.tabBarItem = UITabBarItem(.news)
