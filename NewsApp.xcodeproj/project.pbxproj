@@ -47,6 +47,7 @@
 		A0757CDA2B72403D006C3F61 /* DetailAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0757CD92B72403D006C3F61 /* DetailAssembler.swift */; };
 		A0757CDC2B726049006C3F61 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0757CDB2B726049006C3F61 /* BaseView.swift */; };
 		A0757CE02B726DB3006C3F61 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0757CDF2B726DB3006C3F61 /* StorageManager.swift */; };
+		A0757CE62B7291CB006C3F61 /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0757CE52B7291CB006C3F61 /* String+extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		A0757CD92B72403D006C3F61 /* DetailAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAssembler.swift; sourceTree = "<group>"; };
 		A0757CDB2B726049006C3F61 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		A0757CDF2B726DB3006C3F61 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		A0757CE52B7291CB006C3F61 /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,9 +131,9 @@
 				A0757CA92B721DE7006C3F61 /* Extensions */,
 				A0757C912B721C52006C3F61 /* Managers */,
 				A0757CBF2B721F85006C3F61 /* Services */,
-				A0757C862B7219A8006C3F61 /* Storyboards */,
 				A0757C882B721A40006C3F61 /* Scenes */,
 				A0757CA62B721DB6006C3F61 /* Common */,
+				A0757C862B7219A8006C3F61 /* Storyboards */,
 				A0757C872B7219B7006C3F61 /* Resources */,
 			);
 			path = NewsApp;
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				A0757CAA2B721DF9006C3F61 /* UITabBarItem+extension.swift */,
+				A0757CE52B7291CB006C3F61 /* String+extension.swift */,
 				A0757CBD2B721F6D006C3F61 /* Encodable+extension.swift */,
 				A0757CB52B721F01006C3F61 /* UIView+extension.swift */,
 				A0757CB72B721F0C006C3F61 /* UIStackView+extension.swift */,
@@ -400,6 +403,7 @@
 				A0757C742B721946006C3F61 /* SceneDelegate.swift in Sources */,
 				A0757CA32B721D74006C3F61 /* NetworkError.swift in Sources */,
 				A0757CA52B721D9D006C3F61 /* AFResult.swift in Sources */,
+				A0757CE62B7291CB006C3F61 /* String+extension.swift in Sources */,
 				A0757CD62B724027006C3F61 /* DetailPresenter.swift in Sources */,
 				A0757CD12B72372F006C3F61 /* SegmentItem.swift in Sources */,
 				A0757CE02B726DB3006C3F61 /* StorageManager.swift in Sources */,

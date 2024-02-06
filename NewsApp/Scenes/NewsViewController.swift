@@ -9,9 +9,6 @@ import SnapKit
 
 private enum Constants {
     static let padding: CGFloat = 20.0
-    static let logoutButtonWidth: CGFloat = 100.0
-    static let logoutButtonHeight: CGFloat = 44.0
-    static let logoutCornerRadius: CGFloat = 10.0
     static let tableViewRowHeight = 170.0
 }
 
@@ -25,9 +22,6 @@ protocol NewsViewProtocol: BaseViewProtocol {
 final class NewsViewController: BaseViewController {
 
     // MARK: - Properties
-
-    var selectedNewsHandler: (([NewsData]) -> Void)?
-    var selectedNews: [NewsData] = []
 
     var presenter: NewsPresenterProtocol!
 
@@ -71,14 +65,6 @@ final class NewsViewController: BaseViewController {
         let selectedSegmentIndex = segmentedControl.selectedSegmentIndex
         presenter.segmentDidChange(selectedSegmentIndex: selectedSegmentIndex)
     }
-
-    func checkBoxChanged(to isSelected: Bool, value: NewsData) {
-        if isSelected {
-            selectedNews.append(value)
-        } else {
-            selectedNews = selectedNews.filter { $0.articleID != value.articleID }
-        }
-    }
 }
 
 // MARK: - Setup Subviews
@@ -89,11 +75,7 @@ extension NewsViewController {
         super.embedSubviews()
 
         view.backgroundColor = .secondarySystemBackground
-
-        [
-            segmentedControl,
-            newsTableView
-        ].forEach(view.addSubview)
+        view.addSubviews(segmentedControl, newsTableView)
     }
 
     override func setupConstraints() {
