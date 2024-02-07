@@ -9,7 +9,7 @@ import SnapKit
 
 private enum Constants {
     static let padding: CGFloat = 20.0
-    static let tableViewRowHeight = 170.0
+    static let cellHeight: CGFloat = 170
 }
 
 protocol NewsViewProtocol: BaseViewProtocol {
@@ -58,12 +58,22 @@ final class NewsViewController: BaseViewController {
         presenter.viewDidLoad()
     }
 
-    // MARK: - Actions
+    // MARK: - Private methods
 
     @objc
     private func didChangeSegment() {
         let selectedSegmentIndex = segmentedControl.selectedSegmentIndex
         presenter.segmentDidChange(selectedSegmentIndex: selectedSegmentIndex)
+    }
+
+    private func createSpinnerFooter() -> UIView {
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 120))
+        let spinner = UIActivityIndicatorView()
+        spinner.center = footerView.center
+        footerView.addSubview(spinner)
+        spinner.startAnimating()
+
+        return footerView
     }
 }
 
@@ -99,6 +109,7 @@ extension NewsViewController {
 extension NewsViewController: NewsViewProtocol {
     /// Notifies that new data has been received.
     func didReceiveData() {
+        newsTableView.tableFooterView = nil
         newsTableView.reloadData()
     }
 }
@@ -107,17 +118,17 @@ extension NewsViewController: NewsViewProtocol {
 
 extension NewsViewController: UITableViewDelegate {
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        Constants.tableViewRowHeight
-    }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentItem = presenter.news[indexPath.row]
         presenter.didSelectSettingsRow(item: currentItem)
     }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        Constants.cellHeight
+    }
 }
 
-// MARK: - UITableView Data Source
+// MARK: - UITableView DataSource
 
 extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -132,6 +143,18 @@ extension NewsViewController: UITableViewDataSource {
         cell.configure(model: currentNews)
 
         return cell
+    }
+}
+
+// MARK: - UIScrollView Delegate
+
+extension NewsViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (newsTableView.contentSize.height+130-scrollView.frame.size.height) && presenter.canPaginating {
+            newsTableView.tableFooterView = createSpinnerFooter()
+            presenter.didStartPagination()
+        }
     }
 }
 

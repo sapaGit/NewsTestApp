@@ -78,7 +78,7 @@ final class DetailViewController: BaseViewController {
         newsImageView.image = presenter.newsImage
         descriptionLabel.text = presenter.descriptionText
         favoritesBarButton.isSelected = presenter.isAddedToFavorites
-        buttonAnimation()
+
     }
 
     // MARK: - Actions
@@ -86,16 +86,7 @@ final class DetailViewController: BaseViewController {
     @objc
     private func favoritesDidTap() {
         favoritesBarButton.isSelected.toggle()
-        buttonAnimation()
         presenter.didTapAddToFavorites(isSelected: favoritesBarButton.isSelected)
-    }
-
-    private func buttonAnimation() {
-        if favoritesBarButton.isSelected {
-            favoritesBarButton.setSymbolImage(UIImage(systemName: "star.fill")!, contentTransition: .automatic)
-        } else {
-            favoritesBarButton.setSymbolImage(UIImage(systemName: "star")!, contentTransition: .automatic)
-        }
     }
 }
 
