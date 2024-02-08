@@ -36,12 +36,14 @@ struct NewsData: Decodable {
     let description: String?
     let pubDate: String
     let imageURL: String?
+    let sourceURL: String?
 
     enum CodingKeys: String, CodingKey {
         case articleID = "article_id"
         case title, creator
         case description, pubDate
         case imageURL = "image_url"
+        case sourceURL = "source_url"
 
     }
 }

@@ -8,9 +8,11 @@ import Kingfisher
 
 protocol DetailPresenterProtocol: BasePresenterProtocol {
 
+    var creatorText: String? { get }
     var nameText: String { get }
     var newsImage: UIImage { get }
-    var descriptionText: String { get }
+    var descriptionText: String? { get }
+    var sourceText: String? { get }
     var isAddedToFavorites: Bool { get }
 
     func didTapAddToFavorites(isSelected: Bool)
@@ -26,20 +28,19 @@ final class DetailPresenter {
 
     // MARK: - Properties
 
+    var creatorText: String?
+
     var nameText = String()
 
     var newsImage = UIImage(systemName: "photo")!
 
-    var descriptionText = String()
+    var descriptionText: String?
+
+    var sourceText: String?
 
     var isAddedToFavorites = false
 
     private let storageManager = CoreDataManager.shared
-
-    private var favoriteNews: [News] = []
-
-    private var	 currentNews: News?
-
 
     // MARK: - init
 
@@ -73,27 +74,20 @@ final class DetailPresenter {
             }
         }
     }
-
-    // MARK: - deinit
-    deinit {
-        guard isAddedToFavorites else {
-            UserDefaultsManager.removeValue(forKey: model.articleID)
-            return
-        }
-        UserDefaultsManager.save(value: model.articleID, forKey: model.articleID)
-    }
-
 }
 
 // MARK: - Presenter Protocol
 
 extension DetailPresenter: DetailPresenterProtocol {
+    
     func viewDidLoad() {
+        creatorText = model.creator?.first
         nameText = model.title
-        descriptionText = model.description ?? "Data is missing"
+        descriptionText = model.description
         downloadImage { [weak self] in
             self?.view?.didReceiveData()
         }
+        sourceText = model.sourceURL
     }
 
     func viewWillAppear() {
@@ -105,22 +99,11 @@ extension DetailPresenter: DetailPresenterProtocol {
         isAddedToFavorites = isSelected
         if isSelected {
             storageManager.saveNews(newsData: model) {
-                print("succesful save")
+                UserDefaultsManager.save(value: model.articleID, forKey: model.articleID)
             }
         } else {
-            storageManager.loadNews { result in
-                switch result {
-                case .success(let news):
-                    for article in news {
-                        if article.newsID == model.articleID {
-                            storageManager.delete(news: article) {
-                                print("succesful delete")
-                            }
-                        }
-                    }
-                case .failure(let error):
-                    print(error)
-                }
+            storageManager.delete(newsData: model) {
+                UserDefaultsManager.removeValue(forKey: model.articleID)
             }
         }
     }

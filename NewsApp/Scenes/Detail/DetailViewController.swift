@@ -10,9 +10,6 @@ import Kingfisher
 
 private enum Constants {
     static let topPadding: CGFloat = 20.0
-    static let logoutButtonWidth: CGFloat = 100.0
-    static let logoutButtonHeight: CGFloat = 44.0
-    static let logoutCornerRadius: CGFloat = 10.0
 }
 
 protocol DetailViewProtocol: BaseViewProtocol {
@@ -30,6 +27,24 @@ final class DetailViewController: BaseViewController {
 
     private let scrollView = UIScrollView()
 
+    private let vStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 20
+        stackView.distribution = .fill
+
+        return stackView
+    }()
+
+    private let creatorLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.numberOfLines = .zero
+        label.textAlignment = .center
+
+        return label
+    }()
+
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15)
@@ -41,7 +56,10 @@ final class DetailViewController: BaseViewController {
 
     private let newsImageView: UIImageView = {
         let imageView = UIImageView()
+        let image = UIImage(systemName: "photo")
+        imageView.image = image
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
 
         return imageView
     }()
@@ -51,6 +69,15 @@ final class DetailViewController: BaseViewController {
         label.font = UIFont.systemFont(ofSize: 15)
         label.numberOfLines = .zero
         label.textAlignment = .left
+
+        return label
+    }()
+
+    private let sourceLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.numberOfLines = .zero
+        label.textAlignment = .center
 
         return label
     }()
@@ -81,12 +108,13 @@ final class DetailViewController: BaseViewController {
     }
 
     func configure() {
-
+        creatorLabel.text = presenter.creatorText
         nameLabel.text = presenter.nameText
         newsImageView.image = presenter.newsImage
         descriptionLabel.text = presenter.descriptionText
-        favoritesBarButton.isSelected = presenter.isAddedToFavorites
+        sourceLabel.text = presenter.sourceText
 
+        favoritesBarButton.isSelected = presenter.isAddedToFavorites
     }
 
     func updateFavoritesButton() {
@@ -112,14 +140,25 @@ extension DetailViewController {
         view.backgroundColor = .white
         view.addSubview(scrollView)
 
+        scrollView.addSubview(vStack)
+
+        vStack.addArrangedSubviews(
+            creatorLabel,
+            nameLabel,
+            newsImageView,
+            descriptionLabel,
+            sourceLabel)
+
         navigationItem.rightBarButtonItem = favoritesBarButton
 
-        scrollView.addSubviews(nameLabel, newsImageView, descriptionLabel)
     }
 
     override func setupConstraints() {
         super.setupConstraints()
 
+        newsImageView.snp.makeConstraints {
+            $0.height.equalTo(300)
+        }
         scrollView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -127,23 +166,9 @@ extension DetailViewController {
 
         }
 
-        nameLabel.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.top).inset(20)
-            $0.leading.trailing.equalToSuperview().inset(40)
-            $0.centerX.equalToSuperview()
-        }
-
-        newsImageView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(nameLabel.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview().inset(40)
-            $0.height.equalTo(newsImageView.snp.width)
-        }
-
-        descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(newsImageView.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalTo(scrollView.snp.bottom).offset(-20)
+        vStack.snp.makeConstraints {
+            $0.top.trailing.leading.bottom.equalToSuperview()
+            $0.width.equalTo(view.snp.width)
         }
     }
 }
