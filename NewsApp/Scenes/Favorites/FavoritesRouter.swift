@@ -1,30 +1,30 @@
 //
-//  NewsRouter.swift
+//  FavoritesRouter.swift
 //  NewsApp
 //
 
 import Foundation
 
-protocol NewsRouterProtocol {
+protocol FavoritesRouterProtocol {
     /// Navigates to DetailViewController
     func routToDetail(model: News)
 }
 
-final class NewsRouter {
+final class FavoritesRouter {
 
     // MARK: - Dependencies
 
-    private weak var view: NewsViewProtocol?
+    private weak var view: FavoritesViewProtocol?
 
     // MARK: - init
-    init(view: NewsViewProtocol) {
+    init(view: FavoritesViewProtocol) {
         self.view = view
     }
 }
 
 // MARK: - Router Protocol
 
-extension NewsRouter: NewsRouterProtocol {
+extension FavoritesRouter: FavoritesRouterProtocol {
     /// Navigate to the detail screen.
     func routToDetail(model: News) {
         let viewController = DetailAssembler.assembly(model: model)

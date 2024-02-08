@@ -52,6 +52,9 @@
 		A0E964E22B73DD8D008FD085 /* News+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E964E02B73DD8D008FD085 /* News+CoreDataClass.swift */; };
 		A0E964E32B73DD8D008FD085 /* News+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E964E12B73DD8D008FD085 /* News+CoreDataProperties.swift */; };
 		A0E964E52B73DDBE008FD085 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E964E42B73DDBE008FD085 /* CoreDataManager.swift */; };
+		A0E964ED2B74B583008FD085 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E964EC2B74B583008FD085 /* FavoritesPresenter.swift */; };
+		A0E964EF2B74B61D008FD085 /* FavoritesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E964EE2B74B61D008FD085 /* FavoritesRouter.swift */; };
+		A0E964F12B74B625008FD085 /* FavoritesAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E964F02B74B625008FD085 /* FavoritesAssembler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +101,9 @@
 		A0E964E02B73DD8D008FD085 /* News+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "News+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A0E964E12B73DD8D008FD085 /* News+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "News+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A0E964E42B73DDBE008FD085 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		A0E964EC2B74B583008FD085 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
+		A0E964EE2B74B61D008FD085 /* FavoritesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesRouter.swift; sourceTree = "<group>"; };
+		A0E964F02B74B625008FD085 /* FavoritesAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesAssembler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +207,9 @@
 			isa = PBXGroup;
 			children = (
 				A0757CC72B722180006C3F61 /* FavoritesViewController.swift */,
+				A0E964EC2B74B583008FD085 /* FavoritesPresenter.swift */,
+				A0E964EE2B74B61D008FD085 /* FavoritesRouter.swift */,
+				A0E964F02B74B625008FD085 /* FavoritesAssembler.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -409,6 +418,7 @@
 				A0757CC42B721FEA006C3F61 /* NewsModel.swift in Sources */,
 				A0757CB62B721F01006C3F61 /* UIView+extension.swift in Sources */,
 				A0757C902B721C3F006C3F61 /* NewsAssembler.swift in Sources */,
+				A0E964EF2B74B61D008FD085 /* FavoritesRouter.swift in Sources */,
 				A0757CC82B722180006C3F61 /* FavoritesViewController.swift in Sources */,
 				A0757C722B721946006C3F61 /* AppDelegate.swift in Sources */,
 				A0757CC12B721FA7006C3F61 /* NewsNetworkService.swift in Sources */,
@@ -419,12 +429,14 @@
 				A0757CA32B721D74006C3F61 /* NetworkError.swift in Sources */,
 				A0757CA52B721D9D006C3F61 /* AFResult.swift in Sources */,
 				A0757CE62B7291CB006C3F61 /* String+extension.swift in Sources */,
+				A0E964ED2B74B583008FD085 /* FavoritesPresenter.swift in Sources */,
 				A0757CD62B724027006C3F61 /* DetailPresenter.swift in Sources */,
 				A0757CD12B72372F006C3F61 /* SegmentItem.swift in Sources */,
 				A0757CE02B726DB3006C3F61 /* StorageManager.swift in Sources */,
 				A0E964E52B73DDBE008FD085 /* CoreDataManager.swift in Sources */,
 				A0757CB22B721E91006C3F61 /* BasePresenterProtocol.swift in Sources */,
 				A0757C8E2B721C39006C3F61 /* NewsRouter.swift in Sources */,
+				A0E964F12B74B625008FD085 /* FavoritesAssembler.swift in Sources */,
 				A0757CB02B721E84006C3F61 /* BaseViewProtocol.swift in Sources */,
 				A0757C8C2B721C31006C3F61 /* NewsPresenter.swift in Sources */,
 				A0757CAB2B721DF9006C3F61 /* UITabBarItem+extension.swift in Sources */,

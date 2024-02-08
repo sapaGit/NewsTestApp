@@ -46,14 +46,14 @@ final class CoreDataManager {
         }
     }
     
-    func saveNews(newsData: NewsData, completion: () -> Void) {
+    func saveNews(newsData: News, completion: () -> Void) {
         let news = News(context: viewContext)
         news.title = newsData.title
-        news.creator = newsData.creator?.first
+        news.creator = newsData.creator
         news.imageURL = newsData.imageURL
         news.pubDate = newsData.pubDate
         news.descriptionText = newsData.description
-        news.newsID = newsData.articleID
+        news.newsID = newsData.newsID
         saveContext()
         completion()
     }
