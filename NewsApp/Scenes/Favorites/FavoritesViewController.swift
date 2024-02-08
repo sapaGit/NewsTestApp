@@ -80,12 +80,18 @@ extension FavoritesViewController: FavoritesViewProtocol {
 extension FavoritesViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentItem = presenter.news[indexPath.row]
+        let currentItem = presenter.newsDataArray[indexPath.row]
         presenter.didSelectFavoritesRow(item: currentItem)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         Constants.cellHeight
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            presenter.didDeleteRow(index: indexPath.row)
+        }
     }
 }
 
@@ -93,14 +99,14 @@ extension FavoritesViewController: UITableViewDelegate {
 
 extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.news.count
+        presenter.newsDataArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.reuseIdentifier, for: indexPath) as? NewsTableViewCell else {
             fatalError("Unable to dequeue cell")
         }
-        let currentNews = presenter.news[indexPath.row]
+        let currentNews = presenter.newsDataArray[indexPath.row]
         cell.configure(model: currentNews)
 
         return cell

@@ -10,7 +10,7 @@ final class CoreDataManager {
 
     static let shared = CoreDataManager()
     
-    private let persistantContainer: NSPersistentContainer = {
+    let persistantContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "CoreDataModel")
         container.loadPersistentStores { (storeDescrition, error) in
             if let error = error as NSError? {
@@ -46,14 +46,14 @@ final class CoreDataManager {
         }
     }
     
-    func saveNews(newsData: News, completion: () -> Void) {
+    func saveNews(newsData: NewsData, completion: () -> Void) {
         let news = News(context: viewContext)
         news.title = newsData.title
-        news.creator = newsData.creator
+        news.creator = newsData.creator?.first
         news.imageURL = newsData.imageURL
         news.pubDate = newsData.pubDate
         news.descriptionText = newsData.description
-        news.newsID = newsData.newsID
+        news.newsID = newsData.articleID
         saveContext()
         completion()
     }

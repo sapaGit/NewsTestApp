@@ -7,7 +7,7 @@ import Foundation
 
 protocol NewsPresenterProtocol: BasePresenterProtocol {
 
-    var newsData: [NewsData] { get }
+    var newsDataArray: [NewsData] { get }
 
     var news: [News] { get }
 
@@ -18,14 +18,14 @@ protocol NewsPresenterProtocol: BasePresenterProtocol {
     func didStartPagination()
 
     /// Called when the newsTableView row is tapped.
-    func didSelectNewsRow(item: News)
+    func didSelectNewsRow(item: NewsData)
 }
 
 final class NewsPresenter {
 
     // MARK: - Properties
 
-    var newsData: [NewsData] = []
+    var newsDataArray: [NewsData] = []
 
     var news: [News] = []
 
@@ -61,21 +61,14 @@ extension NewsPresenter: NewsPresenterProtocol {
         networkService.getNews { [weak self] result in
             switch result {
             case .success(let newsModel):
-                var uniqueNews = [News]()
+                var uniqueNews = [NewsData]()
                 for newsData in newsModel.results {
                     let isUnique = !uniqueNews.contains { $0.title == newsData.title }
                     if isUnique {
-                        let news = News(context: CoreDataManager.shared.viewContext)
-                        news.newsID = newsData.articleID
-                        news.creator = newsData.creator?.first
-                        news.descriptionText = newsData.description
-                        news.imageURL = newsData.imageURL
-                        news.pubDate = newsData.pubDate
-                        news.title = newsData.title
-                        uniqueNews.append(news)
+                        uniqueNews.append(newsData)
                     }
                 }
-                self?.news = uniqueNews
+                self?.newsDataArray = uniqueNews
                 self?.nextPages.append(newsModel.nextPage)
                 self?.canPaginating = true
                 self?.view?.didReceiveData()
@@ -90,7 +83,7 @@ extension NewsPresenter: NewsPresenterProtocol {
     }
 
     /// Called when the newsTableView row is tapped.
-    func didSelectNewsRow(item: News) {
+    func didSelectNewsRow(item: NewsData) {
         router.routToDetail(model: item)
     }
 
@@ -100,21 +93,14 @@ extension NewsPresenter: NewsPresenterProtocol {
         networkService.getNextNews(pageNumber: nextPage) { [weak self] result in
             switch result {
             case .success(let newsModel):
-                var uniqueNews = [News]()
+                var uniqueNews = [NewsData]()
                 for newsData in newsModel.results {
                     let isUnique = !uniqueNews.contains { $0.title == newsData.title }
                     if isUnique {
-                        let news = News(context: CoreDataManager.shared.viewContext)
-                        news.newsID = newsData.articleID
-                        news.creator = newsData.creator?.first
-                        news.descriptionText = newsData.description
-                        news.imageURL = newsData.imageURL
-                        news.pubDate = newsData.pubDate
-                        news.title = newsData.title
-                        uniqueNews.append(news)
+                        uniqueNews.append(newsData)
                     }
                 }
-                self?.news.append(contentsOf: uniqueNews)
+                self?.newsDataArray.append(contentsOf: uniqueNews)
                 self?.nextPages.append(newsModel.nextPage)
                 self?.canPaginating = true
                 self?.view?.didReceiveData()

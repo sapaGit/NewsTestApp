@@ -6,7 +6,7 @@
 
 import Foundation
 
-class StorageManager {
+class UserDefaultsManager {
 
     private static let userDefaults = UserDefaults.standard
 
