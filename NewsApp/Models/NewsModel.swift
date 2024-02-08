@@ -31,10 +31,10 @@ struct NewsModel: Decodable {
 // MARK: - Result
 struct NewsData: Decodable {
     let articleID: String
-    let title: String
+    let title: String?
     let creator: [String]?
     let description: String?
-    let pubDate: String
+    let pubDate: String?
     let imageURL: String?
     let sourceURL: String?
 

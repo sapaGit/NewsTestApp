@@ -82,12 +82,13 @@ extension DetailPresenter: DetailPresenterProtocol {
     
     func viewDidLoad() {
         creatorText = model.creator?.first
-        nameText = model.title
+        nameText = model.title ?? ""
         descriptionText = model.description
         downloadImage { [weak self] in
-            self?.view?.didReceiveData()
+            self?.view?.updateImage()
         }
         sourceText = model.sourceURL
+        view?.didReceiveData()
     }
 
     func viewWillAppear() {

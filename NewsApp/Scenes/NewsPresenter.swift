@@ -9,8 +9,6 @@ protocol NewsPresenterProtocol: BasePresenterProtocol {
 
     var newsDataArray: [NewsData] { get }
 
-    var news: [News] { get }
-
     var canPaginating: Bool { get }
 
     func segmentDidChange(selectedSegmentIndex: Int)
@@ -26,8 +24,6 @@ final class NewsPresenter {
     // MARK: - Properties
 
     var newsDataArray: [NewsData] = []
-
-    var news: [News] = []
 
     var nextPages: [String] = []
 

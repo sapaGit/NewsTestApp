@@ -83,6 +83,7 @@ extension NewsViewController {
     override func embedSubviews() {
         super.embedSubviews()
 
+        title = "News"
         view.backgroundColor = .secondarySystemBackground
         view.addSubviews(segmentedControl, newsTableView)
     }

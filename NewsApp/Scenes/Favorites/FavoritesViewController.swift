@@ -53,6 +53,7 @@ extension FavoritesViewController {
     override func embedSubviews() {
         super.embedSubviews()
 
+        title = "Favorites"
         view.backgroundColor = .secondarySystemBackground
         view.addSubview(favoritesTableView)
     }

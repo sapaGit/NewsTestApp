@@ -17,6 +17,8 @@ protocol DetailViewProtocol: BaseViewProtocol {
     func didReceiveData()
 
     func updateFavoritesButton() 
+
+    func updateImage()
 }
 
 final class DetailViewController: BaseViewController {
@@ -38,16 +40,16 @@ final class DetailViewController: BaseViewController {
 
     private let creatorLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.italicSystemFont(ofSize: 15)
         label.numberOfLines = .zero
-        label.textAlignment = .center
+        label.textAlignment = .left
 
         return label
     }()
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         label.numberOfLines = .zero
         label.textAlignment = .center
 
@@ -75,9 +77,9 @@ final class DetailViewController: BaseViewController {
 
     private let sourceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.italicSystemFont(ofSize: 15)
         label.numberOfLines = .zero
-        label.textAlignment = .center
+        label.textAlignment = .right
 
         return label
     }()
@@ -167,8 +169,9 @@ extension DetailViewController {
         }
 
         vStack.snp.makeConstraints {
-            $0.top.trailing.leading.bottom.equalToSuperview()
-            $0.width.equalTo(view.snp.width)
+            $0.top.bottom.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(view.snp.width).multipliedBy(0.9)
         }
     }
 }
@@ -176,6 +179,10 @@ extension DetailViewController {
 // MARK: - View Protocol
 
 extension DetailViewController: DetailViewProtocol {
+    func updateImage() {
+        newsImageView.image = presenter.newsImage
+    }
+    
     /// Notifies that new data has been received.
     func didReceiveData() {
         favoritesBarButton.isSelected = presenter.isAddedToFavorites
