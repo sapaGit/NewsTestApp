@@ -38,6 +38,7 @@ final class FavoritesViewController: BaseViewController {
     }()
 
     // MARK: - Life cycle
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -80,7 +81,7 @@ extension FavoritesViewController: FavoritesViewProtocol {
 extension FavoritesViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentItem = presenter.newsDataArray[indexPath.row]
+        let currentItem = presenter.newsArray[indexPath.row]
         presenter.didSelectFavoritesRow(item: currentItem)
     }
 
@@ -99,14 +100,14 @@ extension FavoritesViewController: UITableViewDelegate {
 
 extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.newsDataArray.count
+        presenter.newsArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.reuseIdentifier, for: indexPath) as? NewsTableViewCell else {
             fatalError("Unable to dequeue cell")
         }
-        let currentNews = presenter.newsDataArray[indexPath.row]
+        let currentNews = presenter.newsArray[indexPath.row]
         cell.configure(model: currentNews)
 
         return cell

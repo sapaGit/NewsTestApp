@@ -21,6 +21,7 @@ extension News {
     @NSManaged public var imageURL: String?
     @NSManaged public var pubDate: String?
     @NSManaged public var newsID: String?
+    @NSManaged public var sourceURL: String?
 
 }
 

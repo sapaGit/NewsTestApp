@@ -49,6 +49,8 @@ final class NewsTableViewCell: BaseTableViewCell {
 
     private let newsImageView: UIImageView = {
         let imageView = UIImageView()
+        let image = UIImage(systemName: "photo")
+        imageView.image = image
         imageView.clipsToBounds = true
         imageView.kf.indicatorType = .activity
         imageView.contentMode = .scaleAspectFill

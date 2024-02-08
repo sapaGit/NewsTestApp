@@ -54,14 +54,25 @@ final class CoreDataManager {
         news.pubDate = newsData.pubDate
         news.descriptionText = newsData.description
         news.newsID = newsData.articleID
+        news.sourceURL = newsData.sourceURL
         saveContext()
         completion()
     }
     
-    func delete(news: News, completion: () -> Void) {
-            viewContext.delete(news)
-            saveContext()
-            completion()
+    func delete(newsData: NewsData, completion: () -> Void) {
+        loadNews { result in
+            switch result {
+            case .success(let news):
+                for article in news {
+                    if article.newsID == newsData.articleID {
+                        viewContext.delete(article)
+                        saveContext()
+                        completion()
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
         }
-
+    }
 }
