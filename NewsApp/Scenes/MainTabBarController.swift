@@ -32,7 +32,7 @@ private extension MainTabBarController {
 
         // MARK: - Favorites tab item
 
-        let favoritesVC = FavoritesViewController()
+        let favoritesVC = FavoritesAssembler.assembly()
 
         let favoritesNC = UINavigationController(rootViewController: favoritesVC)
         favoritesNC.tabBarItem = UITabBarItem(.favorites)

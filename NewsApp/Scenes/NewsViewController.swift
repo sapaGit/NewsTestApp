@@ -3,7 +3,6 @@
 //  NewsApp
 //
 
-
 import UIKit
 import SnapKit
 
@@ -120,7 +119,7 @@ extension NewsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentItem = presenter.news[indexPath.row]
-        presenter.didSelectSettingsRow(item: currentItem)
+        presenter.didSelectNewsRow(item: currentItem)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

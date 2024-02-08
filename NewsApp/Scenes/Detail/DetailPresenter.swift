@@ -22,7 +22,7 @@ final class DetailPresenter {
 
     private weak var view: DetailViewProtocol?
 
-    private var model: NewsData
+    private var model: News
 
     // MARK: - Properties
 
@@ -43,7 +43,7 @@ final class DetailPresenter {
 
     // MARK: - init
 
-    init(view: DetailViewProtocol?, model: NewsData) {
+    init(view: DetailViewProtocol?, model: News) {
         self.view = view
         self.model = model
     }
@@ -51,7 +51,8 @@ final class DetailPresenter {
     // MARK: - Private methods
 
     private func checkIsInFavorites() -> Bool {
-        return StorageManager.isAddedToFavorites(forKey: model.articleID)
+        guard let id = model.newsID else { return false }
+        return StorageManager.isAddedToFavorites(forKey: id)
     }
 
     private func downloadImage(completion: @escaping () -> Void) {
@@ -75,11 +76,12 @@ final class DetailPresenter {
 
     // MARK: - deinit
     deinit {
+        guard let id = model.newsID else { return }
         guard isAddedToFavorites else {
-            StorageManager.removeValue(forKey: model.articleID)
+            StorageManager.removeValue(forKey: id)
             return
         }
-        StorageManager.save(value: model.articleID, forKey: model.articleID)
+        StorageManager.save(value: id, forKey: id)
     }
 
 }
@@ -89,8 +91,8 @@ final class DetailPresenter {
 extension DetailPresenter: DetailPresenterProtocol {
     func viewDidLoad() {
         isAddedToFavorites = checkIsInFavorites()
-        nameText = model.title
-        descriptionText = model.description ?? "Data is missing"
+        nameText = model.title ?? "Data is missing"
+        descriptionText = model.descriptionText ?? "Data is missing"
         downloadImage { [weak self] in
             self?.view?.didReceiveData()
         }
@@ -103,24 +105,27 @@ extension DetailPresenter: DetailPresenterProtocol {
                 print("succesful save")
             }
         } else {
-
-            storageManager.loadNews { result in
-                switch result {
-                case .success(let news):
-                    favoriteNews = news
-                case .failure(let error):
-                    print(error)
-                }
-            }
-            for news in favoriteNews {
-                if news.newsID == model.articleID {
-                    currentNews = news
-                }
-            }
-            guard let news = currentNews else { return }
-            storageManager.delete(news: news) {
+            storageManager.delete(news: model) {
                 print("succesful delete")
             }
+
+//            storageManager.loadNews { result in
+//                switch result {
+//                case .success(let news):
+//                    favoriteNews = news
+//                case .failure(let error):
+//                    print(error)
+//                }
+//            }
+//            for news in favoriteNews {
+//                if news.newsID == model.newsID {
+//                    currentNews = news
+//                }
+//            }
+//            guard let news = currentNews else { return }
+//            storageManager.delete(news: news) {
+//                print("succesful delete")
+//            }
         }
     }
 }

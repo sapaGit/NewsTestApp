@@ -76,17 +76,17 @@ extension NewsTableViewCell {
         super.prepareForReuse()
 
         imageDownloadTask?.cancel()
-        
+
         nameLabel.text = nil
         dateLabel.text = nil
         authorLabel.text = nil
         newsImageView.image = nil
     }
 
-    func configure(model: NewsData) {
-        nameLabel.text = model.title.capitalized
-        authorLabel.text = model.creator?.first
-        dateLabel.text = model.pubDate.toDateFormattedString() ?? "Unknown Date"
+    func configure(model: News) {
+        nameLabel.text = model.title?.capitalized
+        authorLabel.text = model.creator
+        dateLabel.text = model.pubDate?.toDateFormattedString()
         guard let imageURL = model.imageURL else {return}
         let url = URL(string: imageURL)
 
@@ -139,10 +139,9 @@ extension NewsTableViewCell {
             $0.trailing.equalToSuperview().inset(5)
             $0.width.equalTo(Constants.disclosureImageSize)
             $0.top.bottom.equalToSuperview().inset(5)
-
-            backgroundViewCell.snp.makeConstraints {
-                $0.edges.equalToSuperview().inset(Constants.backgroundInset)
-            }
+        }
+        backgroundViewCell.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(Constants.backgroundInset)
         }
     }
 }
