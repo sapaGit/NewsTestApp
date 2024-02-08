@@ -18,6 +18,8 @@ private enum Constants {
 protocol DetailViewProtocol: BaseViewProtocol {
     /// Notifies that new data has been received.
     func didReceiveData()
+
+    func updateFavoritesButton() 
 }
 
 final class DetailViewController: BaseViewController {
@@ -72,6 +74,12 @@ final class DetailViewController: BaseViewController {
         presenter.viewDidLoad()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        presenter.viewWillAppear()
+    }
+
     func configure() {
 
         nameLabel.text = presenter.nameText
@@ -79,6 +87,10 @@ final class DetailViewController: BaseViewController {
         descriptionLabel.text = presenter.descriptionText
         favoritesBarButton.isSelected = presenter.isAddedToFavorites
 
+    }
+
+    func updateFavoritesButton() {
+        favoritesBarButton.isSelected = presenter.isAddedToFavorites
     }
 
     // MARK: - Actions

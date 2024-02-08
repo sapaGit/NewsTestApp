@@ -22,7 +22,7 @@ final class DetailPresenter {
 
     private weak var view: DetailViewProtocol?
 
-    private var model: News
+    private var model: NewsData
 
     // MARK: - Properties
 
@@ -43,7 +43,7 @@ final class DetailPresenter {
 
     // MARK: - init
 
-    init(view: DetailViewProtocol?, model: News) {
+    init(view: DetailViewProtocol?, model: NewsData) {
         self.view = view
         self.model = model
     }
@@ -51,12 +51,12 @@ final class DetailPresenter {
     // MARK: - Private methods
 
     private func checkIsInFavorites() -> Bool {
-        guard let id = model.newsID else { return false }
-        return StorageManager.isAddedToFavorites(forKey: id)
+        return UserDefaultsManager.isAddedToFavorites(forKey: model.articleID)
     }
 
     private func downloadImage(completion: @escaping () -> Void) {
-        guard let url = URL(string: model.imageURL ?? "") else {
+        guard let imageURL = model.imageURL else { return }
+        guard let url = URL(string: imageURL) else {
             completion()
             return
         }
@@ -76,12 +76,11 @@ final class DetailPresenter {
 
     // MARK: - deinit
     deinit {
-        guard let id = model.newsID else { return }
         guard isAddedToFavorites else {
-            StorageManager.removeValue(forKey: id)
+            UserDefaultsManager.removeValue(forKey: model.articleID)
             return
         }
-        StorageManager.save(value: id, forKey: id)
+        UserDefaultsManager.save(value: model.articleID, forKey: model.articleID)
     }
 
 }
@@ -90,12 +89,16 @@ final class DetailPresenter {
 
 extension DetailPresenter: DetailPresenterProtocol {
     func viewDidLoad() {
-        isAddedToFavorites = checkIsInFavorites()
-        nameText = model.title ?? "Data is missing"
-        descriptionText = model.descriptionText ?? "Data is missing"
+        nameText = model.title
+        descriptionText = model.description ?? "Data is missing"
         downloadImage { [weak self] in
             self?.view?.didReceiveData()
         }
+    }
+
+    func viewWillAppear() {
+        isAddedToFavorites = checkIsInFavorites()
+        view?.updateFavoritesButton()
     }
 
     func didTapAddToFavorites(isSelected: Bool) {
@@ -105,27 +108,20 @@ extension DetailPresenter: DetailPresenterProtocol {
                 print("succesful save")
             }
         } else {
-            storageManager.delete(news: model) {
-                print("succesful delete")
+            storageManager.loadNews { result in
+                switch result {
+                case .success(let news):
+                    for article in news {
+                        if article.newsID == model.articleID {
+                            storageManager.delete(news: article) {
+                                print("succesful delete")
+                            }
+                        }
+                    }
+                case .failure(let error):
+                    print(error)
+                }
             }
-
-//            storageManager.loadNews { result in
-//                switch result {
-//                case .success(let news):
-//                    favoriteNews = news
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
-//            for news in favoriteNews {
-//                if news.newsID == model.newsID {
-//                    currentNews = news
-//                }
-//            }
-//            guard let news = currentNews else { return }
-//            storageManager.delete(news: news) {
-//                print("succesful delete")
-//            }
         }
     }
 }

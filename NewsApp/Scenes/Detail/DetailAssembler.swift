@@ -8,7 +8,7 @@ final class DetailAssembler {
     /// Assembly the main components for the main screen.
     ///
     /// - Returns: An instance of `DetailViewController` configured with its associated presenter and router.
-    class func assembly(model: News) -> DetailViewController {
+    class func assembly(model: NewsData) -> DetailViewController {
         let view = DetailViewController()
         let presenter = DetailPresenter(view: view, model: model)
 

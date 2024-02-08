@@ -32,23 +32,16 @@ struct NewsModel: Decodable {
 struct NewsData: Decodable {
     let articleID: String
     let title: String
-    let link: String
-    let keywords: [String]?
     let creator: [String]?
     let description: String?
     let pubDate: String
     let imageURL: String?
-    let sourceID: String
-    let sourceURL: String
-    let category: [String]
 
     enum CodingKeys: String, CodingKey {
         case articleID = "article_id"
-        case title, link, keywords, creator
+        case title, creator
         case description, pubDate
         case imageURL = "image_url"
-        case sourceID = "source_id"
-        case sourceURL = "source_url"
-        case category
+
     }
 }

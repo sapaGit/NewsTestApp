@@ -99,7 +99,6 @@ extension NewsViewController {
             $0.top.equalTo(segmentedControl.snp.bottom).inset(-Constants.padding)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-
     }
 }
 
@@ -118,7 +117,7 @@ extension NewsViewController: NewsViewProtocol {
 extension NewsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentItem = presenter.news[indexPath.row]
+        let currentItem = presenter.newsDataArray[indexPath.row]
         presenter.didSelectNewsRow(item: currentItem)
     }
 
@@ -131,14 +130,14 @@ extension NewsViewController: UITableViewDelegate {
 
 extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.news.count
+        presenter.newsDataArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.reuseIdentifier, for: indexPath) as? NewsTableViewCell else {
-            fatalError("Unable to dequeue cell")
+            fatalError("Unable to dequeue the cell")
         }
-        let currentNews = presenter.news[indexPath.row]
+        let currentNews = presenter.newsDataArray[indexPath.row]
         cell.configure(model: currentNews)
 
         return cell

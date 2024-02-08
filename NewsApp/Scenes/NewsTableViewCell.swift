@@ -83,10 +83,10 @@ extension NewsTableViewCell {
         newsImageView.image = nil
     }
 
-    func configure(model: News) {
-        nameLabel.text = model.title?.capitalized
-        authorLabel.text = model.creator
-        dateLabel.text = model.pubDate?.toDateFormattedString()
+    func configure(model: NewsData) {
+        nameLabel.text = model.title.capitalized
+        authorLabel.text = model.creator?.first
+        dateLabel.text = model.pubDate.toDateFormattedString()
         guard let imageURL = model.imageURL else {return}
         let url = URL(string: imageURL)
 

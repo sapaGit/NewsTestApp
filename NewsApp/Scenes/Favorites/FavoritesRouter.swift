@@ -7,7 +7,7 @@ import Foundation
 
 protocol FavoritesRouterProtocol {
     /// Navigates to DetailViewController
-    func routToDetail(model: News)
+    func routToDetail(model: NewsData)
 }
 
 final class FavoritesRouter {
@@ -26,7 +26,7 @@ final class FavoritesRouter {
 
 extension FavoritesRouter: FavoritesRouterProtocol {
     /// Navigate to the detail screen.
-    func routToDetail(model: News) {
+    func routToDetail(model: NewsData) {
         let viewController = DetailAssembler.assembly(model: model)
         view?.pushViewController(viewController, animated: true)
     }
