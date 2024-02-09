@@ -39,7 +39,11 @@ extension NewsService: NewsServiceProtocol {
         ]
         let request: RequestProtocol = NewsRequest(params: parameters)
 
-        netwokManager.makeRequest(request: request, error: .news, completion: completion)
+        netwokManager.makeRequest(
+            request: request,
+            error: .news,
+            completion: completion
+        )
     }
     /// Get news from next page
     func getNextNews(pageNumber: String, completion: @escaping (AFResult<NewsModel>) -> Void) {
@@ -52,6 +56,10 @@ extension NewsService: NewsServiceProtocol {
         ]
         let request: RequestProtocol = NewsRequest(params: parameters)
 
-        netwokManager.makeRequest(request: request, error: .news, completion: completion)
+        netwokManager.makeRequest(
+            request: request,
+            error: .news,
+            completion: completion
+        )
     }
 }

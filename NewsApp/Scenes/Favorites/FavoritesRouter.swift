@@ -17,6 +17,7 @@ final class FavoritesRouter {
     private weak var view: FavoritesViewProtocol?
 
     // MARK: - init
+    
     init(view: FavoritesViewProtocol) {
         self.view = view
     }

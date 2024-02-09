@@ -24,6 +24,5 @@ extension RequestProtocol {
     var params: [String: Any]? { nil }
     var headers: HTTPHeaders? { nil }
     var encoding: ParameterEncoding? { nil }
-    var baseURL: String { "https://newsdata.io/api/1/" }
-
+    var baseURL: String { String.Network.baseURL }
 }

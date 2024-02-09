@@ -3,13 +3,16 @@
 //  NewsApp
 //
 
-
 import UIKit
 import SnapKit
 import Kingfisher
 
 private enum Constants {
     static let topPadding: CGFloat = 20.0
+    static let stackViewSpacing: CGFloat = 20.0
+    static let labelFont: CGFloat = 15
+    static let secondaryLabelFont: CGFloat = 20
+    static let imageHeight: CGFloat = 300
 }
 
 protocol DetailViewProtocol: BaseViewProtocol {
@@ -32,7 +35,7 @@ final class DetailViewController: BaseViewController {
     private let vStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 20
+        stackView.spacing = Constants.stackViewSpacing
         stackView.distribution = .fill
 
         return stackView
@@ -40,7 +43,7 @@ final class DetailViewController: BaseViewController {
 
     private let creatorLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.italicSystemFont(ofSize: 15)
+        label.font = UIFont.italicSystemFont(ofSize: Constants.labelFont)
         label.numberOfLines = .zero
         label.textAlignment = .left
 
@@ -49,7 +52,7 @@ final class DetailViewController: BaseViewController {
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: Constants.secondaryLabelFont)
         label.numberOfLines = .zero
         label.textAlignment = .center
 
@@ -60,6 +63,7 @@ final class DetailViewController: BaseViewController {
         let imageView = UIImageView()
         let image = UIImage(systemName: "photo")
         imageView.image = image
+        imageView.tintColor = .lightGray
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
 
@@ -68,7 +72,7 @@ final class DetailViewController: BaseViewController {
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: Constants.labelFont)
         label.numberOfLines = .zero
         label.textAlignment = .left
 
@@ -77,7 +81,7 @@ final class DetailViewController: BaseViewController {
 
     private let sourceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.italicSystemFont(ofSize: 15)
+        label.font = UIFont.italicSystemFont(ofSize: Constants.labelFont)
         label.numberOfLines = .zero
         label.textAlignment = .right
 
@@ -109,17 +113,15 @@ final class DetailViewController: BaseViewController {
         presenter.viewWillAppear()
     }
 
-    func configure() {
+    // MARK: - Private methods
+
+    private func configure() {
         creatorLabel.text = presenter.creatorText
         nameLabel.text = presenter.nameText
         newsImageView.image = presenter.newsImage
         descriptionLabel.text = presenter.descriptionText
         sourceLabel.text = presenter.sourceText
 
-        favoritesBarButton.isSelected = presenter.isAddedToFavorites
-    }
-
-    func updateFavoritesButton() {
         favoritesBarButton.isSelected = presenter.isAddedToFavorites
     }
 
@@ -159,7 +161,7 @@ extension DetailViewController {
         super.setupConstraints()
 
         newsImageView.snp.makeConstraints {
-            $0.height.equalTo(300)
+            $0.height.equalTo(Constants.imageHeight)
         }
         scrollView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
@@ -179,6 +181,10 @@ extension DetailViewController {
 // MARK: - View Protocol
 
 extension DetailViewController: DetailViewProtocol {
+    func updateFavoritesButton() {
+        favoritesBarButton.isSelected = presenter.isAddedToFavorites
+    }
+    
     func updateImage() {
         newsImageView.image = presenter.newsImage
     }

@@ -42,6 +42,7 @@ final class DetailPresenter {
 
     private let storageManager = CoreDataManager.shared
 
+
     // MARK: - init
 
     init(view: DetailViewProtocol?, model: NewsData) {
@@ -61,9 +62,8 @@ final class DetailPresenter {
             completion()
             return
         }
-        let processor = RoundCornerImageProcessor(cornerRadius: 20)
 
-        KingfisherManager.shared.retrieveImage(with: url, options: [.processor(processor)]) { [weak self] result in
+        KingfisherManager.shared.retrieveImage(with: url) { [weak self] result in
             switch result {
             case .success(let data):
                 self?.newsImage = data.image

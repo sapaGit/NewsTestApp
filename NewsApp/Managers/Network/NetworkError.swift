@@ -20,8 +20,6 @@ final class NetworkError: NSObject, Error {
     }
 }
 
-// TODO: add SwiftGen
-
 enum TypeError: String, Error {
     case notConnectedToInternet = "No Internet connection"
     case timeLimitExceeded = "Request time limit exceeded"
