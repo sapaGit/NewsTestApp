@@ -9,6 +9,8 @@ import SnapKit
 private enum Constants {
     static let padding: CGFloat = 20.0
     static let cellHeight: CGFloat = 170
+    static let tableViewBorderWidth: CGFloat = 2
+    static let footerHeight: CGFloat = 120
 }
 
 protocol NewsViewProtocol: BaseViewProtocol {
@@ -22,32 +24,22 @@ final class NewsViewController: BaseViewController {
 
     // MARK: - Properties
 
-    var presenter: NewsPresenterProtocol!
-
-    private lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl()
-
-        for item in SegmentItem.allCases {
-            segmentedControl.insertSegment(withTitle: item.title, at: segmentedControl.numberOfSegments, animated: false)
-        }
-        segmentedControl.addTarget(self, action: #selector(didChangeSegment), for: .valueChanged)
-        segmentedControl.selectedSegmentIndex = .zero
-
-        return segmentedControl
-    }()
-
     private lazy var newsTableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         tableView.separatorColor = .clear
-        tableView.layer.borderWidth = 2.0
+        tableView.layer.borderWidth = Constants.tableViewBorderWidth
         tableView.layer.borderColor = UIColor(.white).withAlphaComponent(0.1).cgColor
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.reuseIdentifier)
 
         return tableView
     }()
+
+    // MARK: - Dependencies
+
+    var presenter: NewsPresenterProtocol!
 
     // MARK: - Life cycle
 
@@ -59,14 +51,13 @@ final class NewsViewController: BaseViewController {
 
     // MARK: - Private methods
 
-    @objc
-    private func didChangeSegment() {
-        let selectedSegmentIndex = segmentedControl.selectedSegmentIndex
-        presenter.segmentDidChange(selectedSegmentIndex: selectedSegmentIndex)
-    }
-
     private func createSpinnerFooter() -> UIView {
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 120))
+        let footerView = UIView(frame: CGRect(
+            x: 0,
+            y: 0,
+            width: view.frame.size.width,
+            height: Constants.footerHeight
+        ))
         let spinner = UIActivityIndicatorView()
         spinner.center = footerView.center
         footerView.addSubview(spinner)
@@ -83,21 +74,16 @@ extension NewsViewController {
     override func embedSubviews() {
         super.embedSubviews()
 
-        title = "News"
+        title = String.News.title
         view.backgroundColor = .secondarySystemBackground
-        view.addSubviews(segmentedControl, newsTableView)
+        view.addSubviews(newsTableView)
     }
 
     override func setupConstraints() {
         super.setupConstraints()
 
-        segmentedControl.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(Constants.padding)
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(Constants.padding)
-        }
-
         newsTableView.snp.makeConstraints {
-            $0.top.equalTo(segmentedControl.snp.bottom).inset(-Constants.padding)
+            $0.top.equalToSuperview().inset(Constants.padding)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }

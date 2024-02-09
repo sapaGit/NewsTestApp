@@ -11,8 +11,6 @@ protocol NewsPresenterProtocol: BasePresenterProtocol {
 
     var canPaginating: Bool { get }
 
-    func segmentDidChange(selectedSegmentIndex: Int)
-
     func didStartPagination()
 
     /// Called when the newsTableView row is tapped.
@@ -28,6 +26,7 @@ final class NewsPresenter {
     var nextPages: [String] = []
 
     var canPaginating = false
+
 
     // MARK: - Dependencies
 
@@ -72,10 +71,6 @@ extension NewsPresenter: NewsPresenterProtocol {
                 print(error)
             }
         }
-    }
-
-    func segmentDidChange(selectedSegmentIndex: Int) {
-        print(selectedSegmentIndex)
     }
 
     /// Called when the newsTableView row is tapped.

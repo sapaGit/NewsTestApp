@@ -12,9 +12,9 @@ enum TabDetail: Int {
     var title: String {
         switch self {
         case .news:
-            return "News"
+            return String.News.title
         case .favorites:
-            return "Favorites"
+            return String.Favorites.title
         }
     }
 

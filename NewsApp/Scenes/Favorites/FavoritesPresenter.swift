@@ -25,7 +25,7 @@ final class FavoritesPresenter {
 
     // MARK: - Dependencies
 
-    weak var view: FavoritesViewProtocol?
+    private weak var view: FavoritesViewProtocol?
 
     private var router: FavoritesRouterProtocol
 
@@ -50,11 +50,11 @@ extension FavoritesPresenter: FavoritesPresenterProtocol {
                 newsArray.removeAll()
                 for article in newsData {
                    let news = NewsData(
-                    articleID: article.newsID ?? "Data is missing",
-                    title: article.title ?? "Data is missing",
-                    creator: [article.creator ?? "Data is missing"],
+                    articleID: article.newsID ?? String.Favorites.dataIsMissing,
+                    title: article.title ?? String.Favorites.dataIsMissing,
+                    creator: [article.creator ?? String.Favorites.dataIsMissing],
                     description: article.descriptionText,
-                    pubDate: article.pubDate ?? "Data is missing",
+                    pubDate: article.pubDate ?? String.Favorites.dataIsMissing,
                     imageURL: article.imageURL,
                     sourceURL: article.sourceURL
                    )

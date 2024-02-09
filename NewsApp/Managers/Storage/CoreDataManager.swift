@@ -9,7 +9,7 @@ import CoreData
 final class CoreDataManager {
 
     static let shared = CoreDataManager()
-    
+
     let persistantContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "CoreDataModel")
         container.loadPersistentStores { (storeDescrition, error) in

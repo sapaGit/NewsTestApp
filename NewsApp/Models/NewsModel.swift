@@ -6,13 +6,13 @@
 import Foundation
 import Alamofire
 
-// MARK: - LoginEncodable
+// MARK: - NewsEncodable
 
 struct NewsEncodable: Encodable {
     let country: String
 }
 
-// MARK: - LoginRequest
+// MARK: - NewsRequest
 
 struct NewsRequest: RequestProtocol {
     let url = "news"
@@ -21,6 +21,7 @@ struct NewsRequest: RequestProtocol {
 }
 
 // MARK: - NewsResponce
+
 struct NewsModel: Decodable {
     let status: String
     let totalResults: Int
@@ -29,6 +30,7 @@ struct NewsModel: Decodable {
 }
 
 // MARK: - Result
+
 struct NewsData: Decodable {
     let articleID: String
     let title: String?
@@ -44,6 +46,5 @@ struct NewsData: Decodable {
         case description, pubDate
         case imageURL = "image_url"
         case sourceURL = "source_url"
-
     }
 }

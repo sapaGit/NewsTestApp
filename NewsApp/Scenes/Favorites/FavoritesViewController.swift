@@ -9,6 +9,7 @@ import SnapKit
 private enum Constants {
     static let padding: CGFloat = 20.0
     static let cellHeight: CGFloat = 170
+    static let tableViewBorderWidth: CGFloat = 2
 }
 
 protocol FavoritesViewProtocol: BaseViewProtocol {
@@ -30,7 +31,7 @@ final class FavoritesViewController: BaseViewController {
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         tableView.separatorColor = .clear
-        tableView.layer.borderWidth = 2.0
+        tableView.layer.borderWidth = Constants.tableViewBorderWidth
         tableView.layer.borderColor = UIColor(.white).withAlphaComponent(0.1).cgColor
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.reuseIdentifier)
 
@@ -53,7 +54,7 @@ extension FavoritesViewController {
     override func embedSubviews() {
         super.embedSubviews()
 
-        title = "Favorites"
+        title = String.Favorites.title
         view.backgroundColor = .secondarySystemBackground
         view.addSubview(favoritesTableView)
     }
